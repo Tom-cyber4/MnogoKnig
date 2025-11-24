@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Книжный магазин — пример хедера и баннера</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* СБРОС БАЗОВЫХ ОТСТУПОВ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* КОНТЕЙНЕР ПО ШИРИНЕ САЙТА */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* ВЕРХНЯЯ УЗКАЯ ПАНЕЛЬ */
+        .top-bar {
+            background: #f8f8f8;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 13px;
+        }
+
+        .top-bar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+        }
+
+        .top-bar-left,
+        .top-bar-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .top-bar-link {
+            color: #555;
+        }
+
+        .top-bar-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ОСНОВНОЙ ХЕДЕР: ЛОГО + ПОИСК + КОНТАКТЫ */
+        .main-header {
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .main-header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            gap: 20px;
+        }
+
+        /* ЛОГОТИП */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 180px;
+        }
+
+        .logo img {
+            max-height: 50px;
+            display: block;
+        }
+
+        .logo-text {
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ПОИСК */
+        .header-search {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-search form {
+            display: flex;
+            width: 100%;
+        }
+
+        .header-search-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-right: none;
+            border-radius: 3px 0 0 3px;
+            font-size: 14px;
+        }
+
+        .header-search-button {
+            padding: 10px 18px;
+            border: 1px solid #cc0000;
+            background: #e60000;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 13px;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+        }
+
+        .header-search-button:hover {
+            background: #c40000;
+        }
+
+        /* КОНТАКТЫ/КОРЗИНА */
+        .header-contacts {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+            min-width: 180px;
+            font-size: 13px;
+        }
+
+        .header-phone {
+            font-size: 16px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .header-worktime {
+            color: #777;
+        }
+
+        .header-cart {
+            margin-top: 6px;
+            font-weight: bold;
+            color: #e60000;
+            cursor: pointer;
+        }
+
+        .header-cart span {
+            font-weight: normal;
+            color: #555;
+            margin-left: 4px;
+        }
+
+        /* ГЛАВНОЕ МЕНЮ */
+        .main-nav {
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .main-nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 20px;
+            padding: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-item > a {
+            text-transform: uppercase;
+            font-size: 13px;
+            padding-bottom: 3px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-item > a:hover {
+            border-bottom-color: #e60000;
+        }
+
+        /* КАТЕГОРИИ В ЛЕВОЙ КОЛОНКЕ + БАННЕР */
+        .hero-section {
+            background: #ffffff;
+            padding: 15px 0 25px 0;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 20px;
+        }
+
+        /* БЛОК КАТЕГОРИЙ */
+        .hero-categories {
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .hero-categories-header {
+            background: #f0f0f0;
+            padding: 10px 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        .hero-categories-list li a {
+            display: block;
+            padding: 8px 12px;
+            border-top: 1px solid #f2f2f2;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .hero-categories-list li a:hover {
+            background: #fafafa;
+            color: #e60000;
+        }
+
+        /* БОЛЬШОЙ БАННЕР (hero) */
+        .hero-banner {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            min-height: 260px;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            display: flex;
+            align-items: center;
+            padding: 20px 30px;
+            color: #fff;
+        }
+
+        .hero-banner-content {
+            max-width: 60%;
+        }
+
+        .hero-banner-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .hero-banner-subtitle {
+            font-size: 16px;
+            margin-bottom: 18px;
+            line-height: 1.4;
+        }
+
+        .hero-banner-btn {
+            display: inline-block;
+            padding: 10px 22px;
+            background: #ffffff;
+            color: #e60000;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .hero-banner-btn:hover {
+            background: #ffecec;
+        }
+
+        .hero-banner-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.65);
+            padding: 8px 12px;
+            border-radius: 3px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        /* ПОД БАННЕРОМ – МЕСТО ПОД ТОВАРЫ */
+        .after-hero-placeholder {
+            margin-top: 20px;
+            font-size: 15px;
+            color: #555;
+        }
+
+        /* АДАПТИВ */
+        @media (max-width: 992px) {
+            .main-header-inner {
+                flex-wrap: wrap;
+            }
+
+            .header-contacts {
+                align-items: flex-start;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-banner-content {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .top-bar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .main-header-inner {
+                align-items: flex-start;
+            }
+
+            .nav-list {
+                gap: 10px;
+            }
+
+            .hero-banner {
+                padding: 18px 16px;
+            }
+
+            .hero-banner-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ВЕРХНЯЯ УЗКАЯ ПОЛОСА -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-inner">
+                <div class="top-bar-left">
+                    <a href="#" class="top-bar-link">Доставка и оплата</a>
+                    <a href="#" class="top-bar-link">Бонусы и акции</a>
+                    <a href="#" class="top-bar-link">Отследить заказ</a>
+                </div>
+                <div class="top-bar-right">
+                    <a href="#" class="top-bar-link">Вход</a>
+                    <a href="#" class="top-bar-link">Регистрация</a>
+                    <a href="#" class="top-bar-link">Избранное</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ОСНОВНОЙ ХЕДЕР: ЛОГО + ПОИСК + КОНТАКТЫ -->
+    <header class="main-header">
+        <div class="container">
+            <div class="main-header-inner">
+
+                <!-- ЛОГОТИП -->
+                <div class="logo">
+                    <!-- Заменишь src на свой логотип -->
+                    <img src="https://via.placeholder.com/130x50?text=LOGO" alt="Логотип магазина">
+                    <div class="logo-text">МойКнижный</div>
+                </div>
+
+                <!-- ПОИСК -->
+                <div class="header-search">
+                    <form action="#" method="get">
+                        <input type="text" class="header-search-input" placeholder="Искать книги по названию, автору, ISBN">
+                        <button type="submit" class="header-search-button">Найти</button>
+                    </form>
+                </div>
+
+                <!-- КОНТАКТЫ / КОРЗИНА -->
+                <div class="header-contacts">
+                    <div class="header-phone">+7 (000) 000-00-00</div>
+                    <div class="header-worktime">Ежедневно с 9:00 до 21:00 (МСК)</div>
+                    <div class="header-cart">
+                        Корзина: 0 товаров
+                        <span>— 0 ₽</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- ГЛАВНОЕ МЕНЮ -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="main-nav-inner">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#">Каталог книг</a></li>
+                    <li class="nav-item"><a href="#">Новинки</a></li>
+                    <li class="nav-item"><a href="#">Бестселлеры</a></li>
+                    <li class="nav-item"><a href="#">Скидки</a></li>
+                    <li class="nav-item"><a href="#">Для детей</a></li>
+                    <li class="nav-item"><a href="#">Учебная литература</a></li>
+                    <li class="nav-item"><a href="#">Подарочные издания</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ХЕДЕРНАЯ ОБЛАСТЬ С КАТЕГОРИЯМИ СЛЕВА И БОЛЬШИМ БАННЕРОМ -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-inner">
+                <!-- БЛОК КАТЕГОРИЙ -->
+                <aside class="hero-categories">
+                    <div class="hero-categories-header">Разделы каталога</div>
+                    <ul class="hero-categories-list">
+                        <li><a href="#">Художественная литература</a></li>
+                        <li><a href="#">Детские книги</a></li>
+                        <li><a href="#">Нон-фикшн</a></li>
+                        <li><a href="#">Учебники и пособия</a></li>
+                        <li><a href="#">Психология и саморазвитие</a></li>
+                        <li><a href="#">Бизнес и экономика</a></li>
+                        <li><a href="#">Фантастика и фэнтези</a></li>
+                        <li><a href="#">Комиксы и манга</a></li>
+                        <li><a href="#">Подарочные издания</a></li>
+                    </ul>
+                </aside>
+
+                <!-- БОЛЬШОЙ БАННЕР -->
+                <div class="hero-banner">
+                    <div class="hero-banner-content">
+                        <div class="hero-banner-title">
+                            Большая распродажа книг до −40%
+                        </div>
+                        <div class="hero-banner-subtitle">
+                            Тысячи популярных изданий по сниженным ценам: художественная литература, нон-фикшн,
+                            детские книги и многое другое. Успей заказать с быстрой доставкой.
+                        </div>
+                        <a href="#" class="hero-banner-btn">Смотреть книги</a>
+                    </div>
+
+                    <div class="hero-banner-badge">
+                        Только до 30 ноября
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПОД ХЕДЕРОМ: МЕСТО ПОД ТОВАРЫ -->
+            <div class="after-hero-placeholder">
+                <!-- Здесь дальше пойдут блоки с товарами, карусели, подборки и т.п. -->
+                Здесь будет блок с товарами / подборками книг...
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
